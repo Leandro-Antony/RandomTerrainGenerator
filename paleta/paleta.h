@@ -1,6 +1,7 @@
 #ifndef PALETA_H
 #define PALETA_H
 #include "cor.h"
+#include <vector>
 
 class Paleta {
     std::vector<Cor> cores;
@@ -13,7 +14,7 @@ class Paleta {
 
         int obterTamanho();
 
-        Cor obterCor();
+        Cor obterCor(int index);
 };
 
 #endif
