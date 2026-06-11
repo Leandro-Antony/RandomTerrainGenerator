@@ -10,7 +10,7 @@ class Paleta {
         Paleta();
         Paleta(const std::string& nome_arquivo);
 
-        void adicionarCor(Cor& cor);
+        void adicionarCor(const Cor& cor);
 
         int obterTamanho();
 

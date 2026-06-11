@@ -30,7 +30,7 @@ Paleta::Paleta(const std::string& nome_arquivo) {
     };
 }
 
-void Paleta::adicionarCor(Cor& cor) {
+void Paleta::adicionarCor(const Cor& cor) {
     cores.push_back(cor);
 }
 
