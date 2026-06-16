@@ -35,6 +35,9 @@ void Paleta::adicionarCor(const Cor& cor) {
 }
 
 Cor Paleta::obterCor(int index) {
+    if (index < 0 || index >= cores.size()) {
+        return Cor {0, 0, 0};
+    }
     return cores[index];
 }
 
