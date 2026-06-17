@@ -4,22 +4,24 @@
 
 
 class Imagem {
-    int linhas;
     int colunas;
+    int linhas;
     Cor* matriz;
     
     public:
         Imagem();
-        Imagem(int l, int c);
+        Imagem(int c, int l);
+        ~Imagem();
+
+        Cor& operator()(int c, int l);
+
+        int obterLargura();
+        int obterAltura();
         
-        Cor getPixel(int linha, int coluna);
-        void setPixel(int linha, int coluna, const Cor& pixel);
-        int readFile(std::string& nome_arquivo);
-        void saveImage(std::string& nome_arquivo);
-
-        void liberaMatriz(int **matriz, int linha);
-
-    
+        Cor getPixel(int c, int l);
+        void setPixel(int c, int l, const Cor& pixel);
+        bool lerPPM(const std::string& nome_arquivo);
+        bool salvarPPM(const std::string& nome_arquivo);
 };
 
 #endif
