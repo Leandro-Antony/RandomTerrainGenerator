@@ -34,6 +34,10 @@ Cor& Imagem::operator()(int c, int l) {
     return matriz[l*colunas + c];
 }
 
+Cor& Imagem::operator()(int c, int l) const{
+    return matriz[l*colunas + c];
+}
+
 int Imagem::obterAltura() {
     return linhas;
 }

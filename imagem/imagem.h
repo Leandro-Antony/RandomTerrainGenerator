@@ -14,6 +14,7 @@ class Imagem {
         ~Imagem();
 
         Cor& operator()(int c, int l);
+        Cor& operator()(int c, int l) const;
 
         int obterLargura();
         int obterAltura();
