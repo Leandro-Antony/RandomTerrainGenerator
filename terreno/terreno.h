@@ -5,12 +5,14 @@
 class Terreno {
     int dimensao;
     int* terreno;
+    int min, max;
     
     public:
         Terreno();
-        Terreno(int n);
+        Terreno(int n, int minimo, int maximo);
         ~Terreno();
 
+        double rugosidade();
         void gerarAltitudes(int n, int rug);
         int obterAltitude(int l, int c);
         int obterLinhas();
