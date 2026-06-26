@@ -30,6 +30,7 @@ class Terreno {
 
         void salvarTerreno(const std::string& nome_arquivo);
         void lerTerreno(const std::string& nome_arquivo);
+        void gerarRelevoPPM(const std::string arquivo_cores, const std::string arquivo_salvar);
 };
 
 #endif

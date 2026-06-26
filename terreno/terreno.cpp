@@ -179,7 +179,6 @@ void Terreno::lerTerreno(const std::string& nome_arquivo) {
             i++;
         }
         
-        
     }
 }
 
