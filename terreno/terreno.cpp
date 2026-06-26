@@ -158,12 +158,49 @@ void Terreno::showTerreno() {
     }
 }
 
-int main() {
-    int n = 0;
-    std::cin >> n;
-    Terreno t(n);
-    t.showTerreno();
 
+void Terreno::salvarTerreno(const std::string& nome_arquivo) {
+    std::ofstream arquivo(nome_arquivo);
+
+    if (arquivo.is_open()) {
+        arquivo << dimensao << std::endl;
+        for (int i = 0; i < dimensao; i++) {
+            for(int j = 0; j < dimensao; j++) {
+                arquivo << obterAltitude(i, j) << " ";
+            }
+            arquivo << std::endl;
+        }
+    }
+}
+
+void Terreno::lerTerreno(const std::string& nome_arquivo) {
+    std::ifstream arquivo(nome_arquivo);
+
+    if (arquivo.is_open()) {
+        arquivo >> dimensao;
+        if (terreno != nullptr) {
+            delete[] terreno;
+        }
+        terreno = new int[dimensao*dimensao];
+        int valor, i = 0;
+        while (arquivo >> valor) {
+            terreno[i] = valor;
+            i++;
+        }
+        
+        
+    }
+}
+
+int main() {
+    // int n = 0;
+    // std::cin >> n;
+    // Terreno t(n);
+    // t.salvarTerreno();
+
+    Terreno t;
+    t.lerTerreno("terreno.txt");
+    t.showTerreno();
 
     return 0;
 }
