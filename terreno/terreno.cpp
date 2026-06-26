@@ -55,7 +55,7 @@ void Terreno::setAltitude(int l, int c, int valor){
 
 void Terreno::gerarAltitudes(){
     terreno = new int[dimensao*dimensao];
-    std::uniform_int_distribution<int> dist(0,100);
+    std::uniform_int_distribution<int> dist(-20,100);
     setAltitude(0,0,dist(gen));
     setAltitude(0,dimensao-1,dist(gen));
     setAltitude(dimensao-1,0,dist(gen));
