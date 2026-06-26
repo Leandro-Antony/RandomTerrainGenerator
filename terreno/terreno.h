@@ -13,7 +13,7 @@ class Terreno {
     void executarDiamond(int l, int c, int lado);
     void executarSquare(int l, int c, int metade);
     void reduzirIntervalo();
-    double gerarPorcentagemDeslocamento();
+    int gerarDeslocamento();
     void setAltitude(int l, int c, int valor);
 
     public:

@@ -22,8 +22,8 @@ Terreno::Terreno(int n) {
 
     terreno = nullptr;
      
-    min = 80;
-    max = 120;
+    min = -80;
+    max = 80;
 
     gerarAltitudes();
 }
@@ -82,23 +82,14 @@ void Terreno::gerarAltitudes(){
 
 
 void Terreno::reduzirIntervalo() {
-    double tamanho_atual = max - min;
-    
-    if (tamanho_atual <= 1.0) return;
-
-    double novo_tamanho = tamanho_atual * rugosidade;
-    double diferenca = (tamanho_atual - novo_tamanho) / 2.0;
-
-    min += (int)diferenca;
-    max -= (int)diferenca;
+    min = (int)(min * rugosidade);
+    max = (int)(max * rugosidade);
 }
 
-double Terreno::gerarPorcentagemDeslocamento() {
-    if (min >= max) return min / 100.0;
-
+int Terreno::gerarDeslocamento() {
+    if (min >= max) return 0;
     std::uniform_int_distribution<int> dist(min, max);
-
-    return dist(gen) / 100.0;
+    return dist(gen);
 }
 
 void Terreno::executarDiamond(int l, int c, int lado) {
@@ -113,9 +104,9 @@ void Terreno::executarDiamond(int l, int c, int lado) {
 
     double media = (sup_esq + sup_dir + inf_esq + inf_dir) / 4.0;
 
-    double porcentagem = gerarPorcentagemDeslocamento();
+    double deslocamento = gerarDeslocamento();
 
-    setAltitude(alvo_l, alvo_c, (int)(media * porcentagem));
+    setAltitude(alvo_l, alvo_c, (int)(media + deslocamento));
 }
 
 void Terreno::executarSquare(int l, int c, int metade) {
@@ -144,9 +135,9 @@ void Terreno::executarSquare(int l, int c, int metade) {
 
     double media = soma / vizinhos;
 
-    double porcentagem = gerarPorcentagemDeslocamento();
+    double deslocamento = gerarDeslocamento();
 
-    setAltitude(l,c,(int)(media * porcentagem));
+    setAltitude(l,c,(int)(media + deslocamento));
 }
 
 void Terreno::showTerreno() {
@@ -193,14 +184,14 @@ void Terreno::lerTerreno(const std::string& nome_arquivo) {
 }
 
 int main() {
-    // int n = 0;
-    // std::cin >> n;
-    // Terreno t(n);
-    // t.salvarTerreno();
+    int n = 0;
+    std::cin >> n;
+    Terreno t(n);
+    t.salvarTerreno("terreno.txt");
 
-    Terreno t;
-    t.lerTerreno("terreno.txt");
-    t.showTerreno();
+    // Terreno t;
+    // t.lerTerreno("terreno.txt");
+    // t.showTerreno();
 
     return 0;
 }
