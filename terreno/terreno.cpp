@@ -181,16 +181,3 @@ void Terreno::lerTerreno(const std::string& nome_arquivo) {
         
     }
 }
-
-int main() {
-    int n = 0;
-    std::cin >> n;
-    Terreno t(n);
-    t.salvarTerreno("terreno.txt");
-
-    // Terreno t;
-    // t.lerTerreno("terreno.txt");
-    // t.showTerreno();
-
-    return 0;
-}

@@ -19,7 +19,7 @@ Cor static hexParaCor(const std::string hex) {
 Paleta::Paleta(const std::string& nome_arquivo) {
     std::ifstream arquivo(nome_arquivo);
     if (!arquivo.is_open()) {
-        std::cerr << "Erro ao abrir o arquivo!" << std::endl;
+        std::cerr << "Erro ao abrir o arquivo de cores!" << std::endl;
         return;
     }
 
