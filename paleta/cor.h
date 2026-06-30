@@ -7,4 +7,6 @@ struct Cor {
     int b;
 };
 
+using Pixel = Cor;
+
 #endif

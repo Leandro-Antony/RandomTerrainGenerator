@@ -2,6 +2,7 @@
 #define PALETA_H
 #include "cor.h"
 #include <vector>
+#include <string>
 
 class Paleta {
     std::vector<Cor> cores;
