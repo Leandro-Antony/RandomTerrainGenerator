@@ -1,11 +1,13 @@
 #include <fstream>
 #include <cstdlib>
 #include <ctime>
-#include "terreno.h"
 #include <cmath>
 #include <iostream>
 #include <random>
 #include <iomanip>
+#include "terreno.h"
+#include "../paleta/paleta.h"
+#include "../imagem/imagem.h"
 
 Terreno::Terreno() {
     dimensao = 0;
@@ -24,6 +26,9 @@ Terreno::Terreno(int n) {
      
     min = -80;
     max = 80;
+
+    minAltitude = 1000;
+    maxAltitude = -1000;
 
     gerarAltitudes();
 }
@@ -150,6 +155,21 @@ void Terreno::showTerreno() {
 }
 
 
+int Terreno::terrenoMax() {
+    for (int i = 0; i < dimensao*dimensao; i++) {
+        if (terreno[i] > maxAltitude) maxAltitude = terreno[i];
+    }
+    return maxAltitude;
+}
+
+int Terreno::terrenoMin() {
+    for (int i = 0; i < dimensao*dimensao; i++) {
+        if (terreno[i] < minAltitude) minAltitude = terreno[i];
+    }
+    return minAltitude;
+}
+
+
 void Terreno::salvarTerreno(const std::string& nome_arquivo) {
     std::ofstream arquivo(nome_arquivo);
 
@@ -180,4 +200,54 @@ void Terreno::lerTerreno(const std::string& nome_arquivo) {
         }
         
     }
+}
+
+void Terreno::gerarRelevoPPM(const std::string arquivo_cores, const std::string arquivo_salvar) {
+    Paleta cores(arquivo_cores);
+
+    int numCores = cores.obterTamanho();
+    
+    int divisor = 280/numCores;
+    
+    int lado = dimensao;
+
+    Imagem mapa(lado, lado);
+    
+    for (int i = 0; i < lado; i++) {
+        for (int j = 0; j < lado; j++) {
+            int altitude = obterAltitude(i, j);
+            int indice = altitude / divisor - 1;
+
+            if (indice < 0) indice = 0;
+            if (indice >= numCores) indice = numCores - 1;
+            
+            Cor corAltitude = cores.obterCor(indice);
+
+            bool deveSombrear = false;
+
+            if (i > 0 && j > 0) {
+                if (altitude < obterAltitude(i - 1, j - 1)) {
+                    deveSombrear = true;
+                }
+            } else if (i == 0 && j > 0) {
+                if (altitude < obterAltitude(i, j - 1)) {
+                    deveSombrear = true;
+                }
+            } else if (i > 0 && j == 0) {
+                if (altitude < obterAltitude(i - 1, j)) {
+                    deveSombrear = true;
+                }
+            }
+
+            if (deveSombrear) {
+                corAltitude.r = (int)(corAltitude.r * 0.7);
+                corAltitude.g = (int)(corAltitude.g * 0.7);
+                corAltitude.b = (int)(corAltitude.b * 0.7);
+            }
+
+            mapa.setPixel(i, j, corAltitude);
+        }
+    }
+
+    mapa.salvarPPM(arquivo_salvar);
 }

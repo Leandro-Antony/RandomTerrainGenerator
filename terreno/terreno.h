@@ -7,6 +7,7 @@ class Terreno {
     int dimensao;
     int* terreno;
     int min, max;
+    int minAltitude, maxAltitude;
     std::mt19937 gen;
     double rugosidade;
 
@@ -27,6 +28,9 @@ class Terreno {
 
         void gerarAltitudes();
         void showTerreno();
+
+        int terrenoMax();
+        int terrenoMin();
 
         void salvarTerreno(const std::string& nome_arquivo);
         void lerTerreno(const std::string& nome_arquivo);
